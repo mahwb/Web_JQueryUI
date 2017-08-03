@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $("#date_from").datepicker();
+            $("#date_to").datepicker();
+            $("#submit").button();
+            $("#alert").dialog();
+            $("#alert").dialog("close");
+            $("#name").click(function () {
+                $("#name").val("");
+            })
+            $("#submit").click(function (event) {
+                if ($("#name").val() == "Name:" || $("#name").val() == "") {
+                    $("#name").siblings().css("visibility", "visible");
+                    $("#submit").css("background-color", "red");
+                    setTimeout(function () {
+                        $("#name").siblings().css("visibility", "hidden");
+                        $("#submit").css("background-color", "blue");
+                    }, 2000);
+                } else {
+                    var date_from = $("#date_from").val();
+                    var date_to = $("#date_to").val();
+                    var name = $("#name").val();
+                    $("#alert").html("<p>Thanks " + name + "! Your cruise leaves on " + date_from + " and returns " + date_to + "!</p>");
+                    $("#alert").dialog("open");
+                    setTimeout(function () {
+                        $("#alert").dialog("close");
+                    }, 3000);
+                }
+                return false;
+            });
+        });
+    </script>
+    <style type="text/css">
+        #name,
+        #date_from,
+        #date_to,
+        p.error {
+            display: inline-block;
+        }
+
+        p.error {
+            color: red;
+            visibility: hidden;
+            margin-left: 20px;
+        }
+
+        .ui-button,
+        .ui-button:hover,
+        .ui-button:focus {
+            background: none;
+            background-color: blue;
+            color: white;
+        }
+
+        .ui-dialog-titlebar-close {
+            display: none;
+        }
+        #ui-id-1 { 
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+    <title>Date Validation</title>
+</head>
+
+<body>
+    <h1>Welcome to CodingDojo plan-a Cruise!!</h1>
+    <form>
+        <div><input type="text" id="date_from" value="From:">
+            <p class="error">Pick Date.</p>
+        </div>
+        <div><input type="text" id="date_to" value="To:">
+            <p class="error">Pick Date.</p>
+        </div>
+        <div><input type="text" id="name" value="Name:">
+            <p class="error">Your name can't be blank.!!</p>
+        </div>
+        <br>
+        <input type="submit" id="submit" value="Check Dates">
+    </form>
+
+    <div id="alert" title="Alert">
+    </div>
+
+</body>
+
+</html>
